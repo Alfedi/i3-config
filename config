@@ -112,15 +112,15 @@ bindsym $mod+minus scratchpad show
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
-set $ws2 " | "
-set $ws3 "2"
-set $ws4 "3"
-set $ws5 "4"
-set $ws6 "5"
-set $ws7 "6"
-set $ws8 "7"
-set $ws9 "8"
-set $ws10 "9"
+set $ws2 "2:  | "
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
 
 
 # switch to workspace
@@ -148,8 +148,8 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 # Apps on a default workspace
-assign [class="TelegramDesktop"] →  | 
-#assign [class="Spotify"] →  | 
+assign [class="TelegramDesktop"] → 2:  | 
+assign [instance="spotify"] → 2:  | 
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -262,4 +262,4 @@ bindsym Control+Mod1+Delete exec /usr/share/i3blocks/shutdown_menu -p rofi
 #######################################################################
 exec i3-config-wizard
 exec feh --bg-scale ~/Imágenes/Wallpapers/FondoChachiGuay.jpg
-exec nm-applet
+exec --no-startup-id nm-applet
