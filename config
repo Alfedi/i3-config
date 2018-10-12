@@ -279,4 +279,3 @@ exec compton
 bindsym $mod+T exec compton || exec killall compton
 exec setxkbmap es
 exec xfce4-power-manager
-exec --no-startup-id volumeicon
