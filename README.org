@@ -5,4 +5,4 @@ Most of the things that I have here are not of my own. Here I'll try to mention 
 - The modules I use came from this, but I edited them a little bit -> https://github.com/cytopia/i3blocks-modules
 - And I use modules from here too -> https://github.com/vivien/i3blocks-contrib
 - Spotify module -> https://github.com/firatakandere/i3blocks-spotify
-
+- i3lock with clock -> [[https://github.com/lexszero/i3lock]]
