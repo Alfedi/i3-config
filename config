@@ -112,16 +112,16 @@ bindsym $mod+minus scratchpad show
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2:  | "
-set $ws3 "3"
+set $ws1 "1: Code"
+set $ws2 "2: Telegram"
+set $ws3 "3: Web"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws9 "4: Music"
+set $ws10 "5: Term"
 
 
 # switch to workspace
@@ -149,9 +149,12 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 # Apps on a default workspace
-assign [class="TelegramDesktop"] → 2:  | 
-assign [class="Spotify"] → 2:  | 
-for_window [class="Spotify"] move to workspace $ws2
+assign [class="TelegramDesktop"] → 2: Telegram
+#assign [class="Spotify"] → 4: Music
+for_window [class="Spotify"] move to workspace $ws9
+assign [class="Terminator"] → 5: Term
+assign [class="Firefox"] → 3: Web
+assign [class="Emacs"] → 1: Code
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -189,26 +192,30 @@ bindsym $mod+R Mode "Resize"
 
 # Start I3bar To Display A Workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-	#i3bar_command i3bar -t
-	status_command i3blocks
-	#bar_command i3bar
-	tray_padding 0
-	mode dock
-	position top
-	separator_symbol "||"
-	font pango:FontAwesome 11
-	colors {
-	       background	#000000
-	       statusline	#ffffff
-	       separator	#ffffff
-				  #Border  #Background  #text
-	       focused_workspace  #575760  #575760      #000000
-	       inactive_workspace #000000  #1E1D22 	#ffffff
-	       urgent_workspace   #ff0000  #ff0000 	#ffffff 
-	       binding_mode       #2f343a  #900000	#ffffff		       
-	}
-}
+
+exec_always --no-startup-id /home/alfedi/.config/polybar/launch.sh
+
+# bar {
+# 	#i3bar_command i3bar -t
+# 	#status_command i3blocks
+# 	#bar_command i3bar
+# 	tray_padding 0
+# 	mode dock
+# 	position top
+# 	separator_symbol "||"
+# 	font pango:FontAwesome 11
+# 	colors {
+# 	       background	#000000
+# 	       statusline	#ffffff
+# 	       separator	#ffffff
+# 				  #Border  #Background  #text
+# 	       focused_workspace  #575760  #575760      #000000
+# 	       inactive_workspace #000000  #1E1D22 	#ffffff
+# 	       urgent_workspace   #ff0000  #ff0000 	#ffffff 
+# 	       binding_mode       #2f343a  #900000	#ffffff		       
+# 	}
+# }
+
 # Screenshots
 bindsym --release 0xff57 exec --no-startup-id scrot ~/Imágenes/kk.png
 bindsym --release $mod+0xff57 exec --no-startup-id scrot -s ~/Imágenes/kk.png
@@ -244,21 +251,16 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 
 default_border none
-#hide_edge_borders smart
 popup_during_fullscreen smart
 force_display_urgency_hint 500 ms
 focus_on_window_activation focus
 focus_follows_mouse no
 focus_wrapping force
 
-bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
-# Archives
-bindsym $mod+Shift+e exec thunar
-# Solving problems with calendar i3blocks
-for_window [class="Yad"] floating enable
 
-# Shutdown computer
-bindsym Control+Mod1+Delete exec /usr/share/i3blocks/shutdown_menu -p rofi
+# Thunar
+bindsym $mod+Shift+e exec thunar
+
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a
 # keysym-based config which used their favorite modifier (alt or windows)
@@ -269,12 +271,14 @@ bindsym Control+Mod1+Delete exec /usr/share/i3blocks/shutdown_menu -p rofi
 # Please remove the following exec line:
 #######################################################################
 #exec i3-config-wizard
+exec_always amixer -c 0 sset Master 100 # Problems with audio
 exec sh /home/alfedi/.screenlayout/layout-normal.sh
-exec --no-startup-id nm-applet
 exec compton
 bindsym $mod+T exec compton || exec killall compton
-exec setxkbmap es
-exec xfce4-power-manager
+exec setxkbmap es -option ctrl:nocaps # change Bloq Mayus to act as crtl
+bindcode Shift+50 exec xdotool key Caps_Lock
+bindcode Shift+62 exec xdotool key Caps_Lock
+exec --no-startup-id xfce4-power-manager
 exec amixer sset Master 100
-# exec nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
+exec nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
 exec feh --bg-scale ~/Imágenes/Wallpapers/Fondo.png
