@@ -106,7 +106,7 @@ date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
 type = custom/script
 interval = 1
 format = <label>
-exec = python $HOME/.i3/polybar/polybar-spotify/spotify_status.py -f '{play_pause} {song} - {artist}'
+exec = python $HOME/.i3/polybar/spotify_status.py -f '{play_pause} {song} - {artist}'
 format-underline = #1db954
 
 [module/wireless-network]
