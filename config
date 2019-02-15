@@ -41,8 +41,6 @@ bindsym $mod+Return exec terminator
 bindsym $mod+Shift+q kill
 
 # Lock Screen
-#bindsym XF86WLAN --release exec "i3lock -i ~/Imágenes/Wallpapers/Locked.png"
-#bindsym XF86WLAN  exec "i3lock -i ~/Imágenes/Wallpapers/Locked.png"
 bindsym $mod+l exec "i3lock -c 000000 -F FFFFFF -T"
 
 
@@ -150,10 +148,8 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 # Apps on a default workspace
 assign [class="TelegramDesktop"] → 2: Telegram
-#assign [class="Spotify"] → 4: Music
 for_window [class="Spotify"] move to workspace $ws9
 assign [class="Terminator"] → 5: Term
-assign [class="Firefox"] → 3: Web
 assign [class="Emacs"] → 1: Code
 
 # reload the configuration file
@@ -162,6 +158,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -223,23 +221,19 @@ bindsym --release $mod+0xff57 exec --no-startup-id scrot -s ~/Imágenes/kk.png
 # Enables TouchPad
 exec xinput set-prop 12 294
 
-
 # Volume
 bindsym XF86AudioRaiseVolume exec "amixer -q -D pulse sset Master 3%+ unmute && pkill -RTMIN+1 i3blocks"
 bindsym XF86AudioLowerVolume exec "amixer -q -D pulse sset Master 3%- unmute && pkill -RTMIN+1 i3blocks"
 bindsym XF86AudioMute exec "amixer -q -D pulse sset Master toggle && pkill -RTMIN+1 i3blocks"
 
-
-
 # Music, well only Spotify but it's something :D
 bindsym XF86AudioPlay exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
 bindsym XF86AudioNext exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
 bindsym XF86AudioPrev exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
-# bindsym XF86AudioStop exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop"
 
 # Brigthness does not work :(
-# bindsym XF86MonBrightnessUp exec xbacklight -d 0 +5
-# bindsym XF86MonBrightnessDown exec xbacklight -d 0 -5
+bindsym XF86MonBrightnessDown exec $(pkexec brillo -U 10)
+bindsym XF86MonBrightnessUp exec $(pkexec brillo -A 10)
 
 # Colors
 # class                 border  backgr. text    indicator child_border
@@ -271,14 +265,15 @@ bindsym $mod+Shift+e exec thunar
 # Please remove the following exec line:
 #######################################################################
 #exec i3-config-wizard
-exec_always amixer -c 0 sset Master 100 # Problems with audio
+
 exec sh /home/alfedi/.screenlayout/layout-normal.sh
 exec compton
 bindsym $mod+T exec compton || exec killall compton
-exec setxkbmap es -option ctrl:nocaps # change Bloq Mayus to act as crtl
+# change Bloq Mayus to act as crtl
+exec setxkbmap es -option ctrl:nocaps
 bindcode Shift+50 exec xdotool key Caps_Lock
 bindcode Shift+62 exec xdotool key Caps_Lock
-exec --no-startup-id xfce4-power-manager
+
 exec amixer sset Master 100
 exec nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
 exec feh --bg-scale ~/Imágenes/Wallpapers/Fondo.png
