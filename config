@@ -50,7 +50,7 @@ bindsym $mod+l exec "xscreensaver-command -lock"
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 #bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+d exec --no-startup-id rofi -show drun #-theme /home/alfedi/.config/rofi/config
+bindsym $mod+d exec --no-startup-id rofi -show drun -theme /home/alfedi/.config/rofi/flamingo.rasi
 # change focus
 # bindsym $mod+$left focus left
 # bindsym $mod+$down focus down
@@ -331,3 +331,7 @@ exec_always xrandr --addmode VGA-0 1600x900_60.00
 exec /home/alfedi/.screenlayout/double.sh
 # xscreensaver
 exec xscreensaver
+# Mobile support
+exec kdeconnect-indicator
+exec autoadb scrcpy --window-title 'My Phone' --shortcut-mod=rctrl -s '{}'
+for_window [title="My Phone"] move scratchpad
