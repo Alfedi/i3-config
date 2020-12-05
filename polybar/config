@@ -1,12 +1,12 @@
 [bar/top]
-monitor = eDP-1-1
+monitor = DVI-0
 width = 100%
-nnnheight = 25
+height = 25
 
 background = #000000
-foreground = #ffffffff
+foreground = #ffffff
 
-underline-color = #666666
+underline-color = #ff00ff
 underline-size = 5
 
 tray-position = none
@@ -21,74 +21,95 @@ font-1 = MaterialIcons:size=10;0
 font-2 = Termsynu:size=8:antialias=false;-2
 font-3 = FontAwesome:size=10;0
 
-modules-left = spotify volume
+modules-left = volume
 modules-center = i3
-modules-right = wireless-network wired-network battery date shutdown
+modules-right = wireless-network wired-network date shutdown
 
-[module/battery]
-type = internal/battery
-full-at = 98
+locale = es_ES.UTF-8
 
-format-charging = <animation-charging> <label-charging>
-format-discharging = <ramp-capacity> <label-discharging>
-format-full = <ramp-capacity> <label-full>
+[bar/bottom]
+monitor = DVI-0
+width = 100%
+height = 25
+bottom = true
 
-ramp-capacity-0 = 
-ramp-capacity-0-foreground = #f53c3c
-ramp-capacity-1 = 
-ramp-capacity-1-foreground = #ffa900
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
+background = #000000
+foreground = #ffffffff
 
-bar-capacity-width = 10
-bar-capacity-format = %{+u}%{+o}%fill%%empty%%{-u}%{-o}
-bar-capacity-fill = █
-bar-capacity-fill-foreground = #ddffffff
-bar-capacity-fill-font = 3
-bar-capacity-empty = █
-bar-capacity-empty-font = 3
-bar-capacity-empty-foreground = #44ffffff
+underline-color = #ff00ff
+underline-size = 5
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
-animation-charging-framerate = 750
+tray-position = left
+
+modules-left = spotify
+
+font-0 = Inconsolata-Regular:size=10;-1
+font-1 = MaterialIcons:size=10;0
+font-2 = Termsynu:size=8:antialias=false;-2
+font-3 = FontAwesome:size=10;0
+
+[bar/top2]
+monitor = VGA-0
+width = 100%
+height = 25
+
+background = #000000
+foreground = #ffffffff
+
+underline-color = #ff00ff
+underline-size = 5
+
+tray-position = none
+
+spacing = 2
+padding-right = 4
+padding-left = 4
+module-margin = 2
+
+font-0 = Inconsolata-Regular:size=10;-1
+font-1 = MaterialIcons:size=10;0
+font-2 = Termsynu:size=8:antialias=false;-2
+font-3 = FontAwesome:size=10;0
+
+modules-left = i3
+modules-right = clock
+
+locale = es_ES.UTF-8
 
 [module/i3]
 type = internal/i3
 ws-num = 10
 show-all = true
-
+strip-wsnumbers = true
 fuzzy-match = true
 
-ws-icon-0 = Term;
-ws-icon-1 = Web;
-ws-icon-2 = Code;
-ws-icon-3 = Music;
-ws-icon-4 = Telegram;
-ws-icon-default = 
+ws-icon-0 = Term; 
+ws-icon-1 = Web; 
+ws-icon-2 = Code; 
+ws-icon-3 = Music; 
+ws-icon-4 = Telegram; 
+ws-icon-5 = Games;
+ws-icon-6 = Comms;
+ws-icon-default = 
 
-format = <label-state>
+format = <label-state><label-mode>
 
 label-mode = %mode%
 
-label-focused = %name%
-label-focused-foreground = #ffffffff
+label-focused = %icon% %name%
+label-focused-foreground = #ffffff
 
-label-focused-background = #0000000
-label-focused-underline = #666666
+label-focused-background = #000000
+label-focused-underline = #4455cc
 label-focused-font = 1
 
-label-unfocused = %icon%
-label-unfocused-foreground = #ffffffff
-label-unfocused-background = #00000000
-label-unfocused-underline = #3d3d3d
+label-unfocused = %index% %name%
+label-unfocused-foreground = #ffffff
+label-unfocused-background = #000000
+label-unfocused-underline = #222266
 label-unfocused-font = 1
 
-label-urgent = %name%
+label-urgent = %index% %name%
 label-urgent-foreground = #000000
 label-urgent-background = #bd2c40
 label-urgent-underline = #9b0a20
@@ -99,24 +120,27 @@ label-separator-padding = 2
 
 [module/date]
 type = internal/date
-date =    %%{F#99}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
-date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
+date =  %{F#fff} %A, %d %B %Y  %{F#fff}%H:%M:%{F#ffbb00}%S%{F-}
+
+[module/clock]
+type = internal/date
+date = %H:%M:%{F#ffbb00}%S%{F-}
 
 [module/spotify]
 type = custom/script
 interval = 1
-format = <label>
-exec = python $HOME/.i3/polybar/spotify_status.py -f '{play_pause} {song} - {artist}'
+format = %{A1:dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous:}%{A2:dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause:}%{A3:dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next:}<label>%{A}%{A}%{A}
+exec = python $HOME/.config/polybar/spotify_status.py -f '{play_pause} {song} - {artist}'
 format-underline = #1db954
 
 [module/wireless-network]
 type = internal/network
-interface = wlp4s0
+interface = wlan0
 interval = 3.0
 ping-interval = 10
 
 format-connected = <ramp-signal> <label-connected>
-label-connected = %essid% %{T3}%local_ip%%{T-}
+label-connected = %essid% %{T1}%local_ip%%{T-}
 label-disconnected =    not connected
 label-disconnected-foreground = #66
 
@@ -134,7 +158,7 @@ animation-packetloss-framerate = 500
 
 [module/wired-network]
 type = internal/network
-interface = enp3s0
+interface = enp1s0
 interval = 3.0
 
 label-connected =    %{T3}%local_ip%%{T-}
@@ -147,15 +171,15 @@ headphone-mixer = Headphone
 headphone-id = 9
 
 format-volume = <ramp-volume> <label-volume> <bar-volume>
-label-muted =   muted
-label-muted-foreground = #66
+label-muted =   muted ||──────────────────────────────────────
+label-muted-foreground = #556677
 
 ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
 ramp-volume-3 = 
 
-bar-volume-width = 50
+bar-volume-width = 25
 bar-volume-indicator = ||
 bar-volume-indicator-font = 3
 bar-volume-indicator-foreground = #fff
@@ -165,11 +189,6 @@ bar-volume-fill-foreground = #
 bar-volume-empty = ─
 bar-volume-empty-font = 3
 bar-volume-empty-foreground = #44
-
-[module/clock]
-type = internal/date
-interval = 2
-date = %%{F#999}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
 
 [module/shutdown]
 type = custom/menu
