@@ -156,12 +156,12 @@ for_window [class="Spotify"] move to workspace $ws9
 assign [class="Alacritty"] → 10: Term
 assign [class="Emacs"] → 1: Code
 
-#workspace "1: Code" output DVI-0
-#workspace "2: Telegram" output DVI-0
-#workspace "3: Web" output DVI-0
-#workspace "8: Games" output DVI-0
-#workspace "9: Music" output VGA-0
-#workspace "10: Term" output DVI-0
+workspace "1: Code" output DVI-0
+workspace "2: Telegram" output DVI-0
+workspace "3: Web" output DVI-0
+workspace "8: Games" output DVI-0
+workspace "9: Music" output VGA-0
+workspace "10: Term" output DVI-0
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
